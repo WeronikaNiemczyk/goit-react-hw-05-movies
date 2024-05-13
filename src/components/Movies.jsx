@@ -9,8 +9,8 @@ const Movies = () => {
   const [query, setQuery] = useState('');
   const [movies, setMovies] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
-  // const id = searchParams.get('movieId');
-  console.log('id', searchParams);
+  const movieName = searchParams.get('query') || '';
+  // console.log('id', searchParams);
 
   // console.log('query', query);
   const onChange = event => {
@@ -19,8 +19,9 @@ const Movies = () => {
   };
 
   const searchMovies = async () => {
+    if (!query) return;
     try {
-      const results = await fetchKeyWords(query);
+      const results = await fetchKeyWords(movieName);
       setMovies(results);
     } catch (error) {
       console.error('Error searching for movies:', error);
@@ -31,7 +32,7 @@ const Movies = () => {
     <>
       <div>
         <Input
-          value={query}
+          value={movieName}
           type="text"
           placeholder="Type..."
           onChange={onChange}

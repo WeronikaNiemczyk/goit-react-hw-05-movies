@@ -8,6 +8,7 @@ const Cast = () => {
   const [cast, setCast] = useState([]);
 
   useEffect(() => {
+    if (!movieId) return;
     const fetchMovieCast = async () => {
       try {
         const movieCast = await fetchCast(movieId);
